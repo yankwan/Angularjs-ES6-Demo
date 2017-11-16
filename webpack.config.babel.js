@@ -18,8 +18,22 @@ export default {
                     use: ["css-loader", 'sass-loader']
                   })
             },// ['style-loader', 'css-loader', 'sass-loader']
-            { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader'}
+            { 
+                test: /\.js$/, 
+                exclude: /node_modules/, 
+                use: ['ng-annotate-loader','babel-loader']
+            },
+            {
+                test: /\.html$/,
+                use: [
+                    { loader:'ngtemplate-loader?relativeTo=' + (path.resolve(__dirname, './src/')) },
+                    { loader: 'html-loader' }
+                ]
+            }
         ]
+    },
+    devServer: {
+        contentBase: './dist'
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -28,7 +42,8 @@ export default {
             //     collapseWhitespace: true
             // },
             hash: true,
-            template: './src/index.html'
+            inject: 'body',
+            template: './src/script/index.html'
         }),
         new ExtractTextPlugin({
             filename: 'style.css',
