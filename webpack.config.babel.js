@@ -9,6 +9,7 @@ export default {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js'
     },
+    devtool: 'source-map',
     module: {
         rules: [
             { 
@@ -25,8 +26,9 @@ export default {
             },
             {
                 test: /\.html$/,
+                exclude: path.resolve(__dirname, './src/script/index.html'),
                 use: [
-                    { loader:'ngtemplate-loader?relativeTo=' + (path.resolve(__dirname, './src/')) },
+                    { loader:'ngtemplate-loader?relativeTo=' + (path.resolve(__dirname, './src')) },
                     { loader: 'html-loader' }
                 ]
             }
@@ -41,9 +43,9 @@ export default {
             // minify: {
             //     collapseWhitespace: true
             // },
-            hash: true,
             inject: 'body',
-            template: './src/script/index.html'
+            hash: true,
+            template: path.resolve(__dirname, './src/script/index.html')
         }),
         new ExtractTextPlugin({
             filename: 'style.css',
