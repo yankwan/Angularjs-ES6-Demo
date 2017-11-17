@@ -1,5 +1,12 @@
-* {
-    margin: 0;
-    padding: 0;
-}
+/**
+ * 基本样式
+ */
+@import 'layout/basic.scss';
 
+:global {
+    /**
+     * 组件
+     */
+    @import 'components/nav.scss';
+    @import 'components/header.scss';
+}

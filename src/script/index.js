@@ -8,7 +8,8 @@ import aboutCtrl from './pages/about_view/about.controller.js';
 import listTemplate from './pages/list_view/list.view.html';
 import listCtrl from './pages/list_view/list.controller.js';
 
-import directive from './components/nav/nav.directive.js';
+import navDirective from './components/nav/nav.directive.js';
+import headerDirective from './components/header/header.directive.js';
 
 console.log(aboutTemplate);
 
@@ -31,4 +32,5 @@ const app = angular.module('demo-app', ['ui.router'])
             controllerAs: 'cl'
         })
     }])
-    .directive('demoNav', directive.factory);
+    .directive('demoNav', navDirective.factory)
+    .directive('demoHeader', headerDirective.factory);
