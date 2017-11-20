@@ -16,7 +16,15 @@ export default {
                 test: /\.scss$/, 
                 use: ExtractTextPlugin.extract({
                     fallback: "style-loader",
-                    use: ["css-loader", 'sass-loader']
+                    // 使用css modules
+                    use: [{
+                            loader: "css-loader",
+                            options: {
+                                modules: true,
+                                localIdentName: '[local]--[hash:base64:5]',
+                                sourceMap: true
+                            }
+                        }, 'sass-loader']
                   })
             },// ['style-loader', 'css-loader', 'sass-loader']
             { 

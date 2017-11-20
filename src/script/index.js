@@ -1,7 +1,9 @@
-import 'angular';
-import '@uirouter/angularjs';
+import angular from 'angular';
+import uirouter from '@uirouter/angularjs';
 
-import scss from './../assets/style/index.scss';
+import scss from '../assets/style/index.scss';
+
+console.log(scss);
 
 import aboutTemplate from './pages/about_view/about.view.html';
 import aboutCtrl from './pages/about_view/about.controller.js';
@@ -11,25 +13,23 @@ import listCtrl from './pages/list_view/list.controller.js';
 import navDirective from './components/nav/nav.directive.js';
 import headerDirective from './components/header/header.directive.js';
 
-console.log(aboutTemplate);
-
-const app = angular.module('demo-app', ['ui.router'])
+const app = angular.module('demo-app', [uirouter])
     .config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterProvider) => {
         
         $urlRouterProvider.otherwise('/list');
 
-        $stateProvider.state('/about', {
+        $stateProvider.state('about', {
             url: '/about',
             templateUrl: aboutTemplate,
             controller: aboutCtrl,
-            controllerAs: 'cl'
+            controllerAs: 'vm'
         });
 
-        $stateProvider.state('/list', {
+        $stateProvider.state('list', {
             url: '/list',
             templateUrl: listTemplate,
             controller: listCtrl,
-            controllerAs: 'cl'
+            controllerAs: 'vm'
         })
     }])
     .directive('demoNav', navDirective.factory)
