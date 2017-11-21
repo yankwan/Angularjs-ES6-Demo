@@ -3,32 +3,18 @@ import uirouter from '@uirouter/angularjs';
 
 import '../assets/style/index.scss';
 
-import aboutTemplate from './pages/about_view/about.view.html';
-import aboutCtrl from './pages/about_view/about.controller.js';
-import listTemplate from './pages/list_view/list.view.html';
-import listCtrl from './pages/list_view/list.controller.js';
 
-import navDirective from './components/nav/nav.directive.js';
-import headerDirective from './components/header/header.directive.js';
+const app = angular.module('demo-app', [uirouter]);
 
-const app = angular.module('demo-app', [uirouter])
-    .config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterProvider) => {
-        
-        $urlRouterProvider.otherwise('/list');
+/**
+ * 应用模块加载
+ */
+const modules = require.context('./../script', true, /\.module.index.js$/);
+modules.keys().forEach(modules);
 
-        $stateProvider.state('about', {
-            url: '/about',
-            templateUrl: aboutTemplate,
-            controller: aboutCtrl,
-            controllerAs: 'vm'
-        });
-
-        $stateProvider.state('list', {
-            url: '/list',
-            templateUrl: listTemplate,
-            controller: listCtrl,
-            controllerAs: 'vm'
-        })
-    }])
-    .directive('demoNav', navDirective.factory)
-    .directive('demoHeader', headerDirective.factory);
+/**
+ * 公共组件加载
+ */
+let components = require.context('./../script/components/', true, /\.index.js$/);
+console.log(components.keys());
+components.keys().forEach(components);

@@ -2,6 +2,7 @@ import webpack from 'webpack';
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 
 export default {
     entry: './src/script/index.js',
@@ -59,6 +60,7 @@ export default {
             filename: 'style.css',
             disable: false,
             allChunks: true
-        })
+        }),
+        new UglifyJsPlugin()
     ]
 }
