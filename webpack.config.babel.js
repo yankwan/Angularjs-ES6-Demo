@@ -48,9 +48,9 @@ export default {
     plugins: [
         new HtmlWebpackPlugin({
             title: 'AngulrJS In ES6',
-            // minify: {
-            //     collapseWhitespace: true
-            // },
+            minify: {
+                collapseWhitespace: true
+            },
             inject: 'body',
             hash: true,
             template: path.resolve(__dirname, './src/script/index.html')

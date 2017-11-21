@@ -1,9 +1,7 @@
 import angular from 'angular';
 import uirouter from '@uirouter/angularjs';
 
-import scss from '../assets/style/index.scss';
-
-console.log(scss);
+import '../assets/style/index.scss';
 
 import aboutTemplate from './pages/about_view/about.view.html';
 import aboutCtrl from './pages/about_view/about.controller.js';
