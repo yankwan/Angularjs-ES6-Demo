@@ -3,12 +3,17 @@ import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
+import BundleAnalyzerPlugin from 'webpack-bundle-analyzer';
 
 export default {
-    entry: {vendor: ['jquery'], bootstrap: 'bootstrap-loader/extractStyles',  app: './src/script/index.js'},
+    entry: {
+        vendor: ['angular'],
+        bootstrap: 'bootstrap-loader/extractStyles',  
+        app: './src/script/index.js'
+    },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: '[name].js'
+        filename: '[name].[chunkhash].js'
     },
     devtool: 'source-map',
     module: {
@@ -42,8 +47,8 @@ export default {
                 ]
             },
             { test:/bootstrap-sass[\/\\]assets[\/\\]javascripts[\/\\]/, loader: 'imports-loader?jQuery=jquery' },
-            { test: /\.(woff2?|svg)$/, loader: 'url-loader?limit=10000&name=[name].[ext]' },
-            { test: /\.(ttf|eot)$/, loader: 'file-loader?name=[name].[ext]' }
+            { test: /\.(woff2?|svg)$/, loader: 'url-loader?limit=10000&name=fonts/[name].[ext]' },
+            { test: /\.(ttf|eot)$/, loader: 'file-loader?name=fonts/[name].[ext]' }
         ]
     },
     devServer: {
@@ -60,14 +65,16 @@ export default {
             template: path.resolve(__dirname, './src/script/index.html')
         }),
         new ExtractTextPlugin({
-            filename: '[name].css',
+            filename: 'css/[name].css',
             disable: false,
             allChunks: true
         }),
         new UglifyJsPlugin(),
         new webpack.optimize.CommonsChunkPlugin({
-            name: "common",
-            chunks: ['vendor', 'bootstrap']
+            name: ["vendor", "manifest"]
+        }),
+        new BundleAnalyzerPlugin.BundleAnalyzerPlugin({
+            analyzerMode: 'static'
         })
     ]
 }
